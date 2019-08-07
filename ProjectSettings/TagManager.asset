@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Falling Item
   - Pausa
+  - Destroyer
+  - manoIzquierda
+  - manoDerecha
   layers:
   - Default
   - TransparentFX
