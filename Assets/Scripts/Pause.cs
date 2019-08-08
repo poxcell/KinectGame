@@ -10,7 +10,15 @@ public class Pause : MonoBehaviour
 	private float timer = 0;
 	private float currentTime;
 	private bool hasExited = true;
+
+	public float pauseTime = 2;
+	public GameObject spawner;
 	
+	void Awake()
+	{
+		
+	}
+
 	void Update()
 	{
 		if (hasExited)
@@ -19,15 +27,17 @@ public class Pause : MonoBehaviour
 			{
 				if (entered)
 				{
-					if (timer < 2)
+					if (timer < pauseTime)
 					{
 						timer += Time.deltaTime;
+						gameObject.GetComponent<Renderer>().material.color = new Color(((timer / 2)) + .1f, .4f, .41f, ((timer / 2)) + .1f);
 					}
 					else
 					{
 						pauseGame();
 						hasExited = false;
 						paused = true;
+						
 					}
 				}
 
@@ -36,9 +46,13 @@ public class Pause : MonoBehaviour
 			{
 				if (entered)
 				{
-					if (timer < 2)
+					if (timer < pauseTime)
 					{
+						float cur = pauseTime;
+						
 						timer += Time.deltaTime;
+						cur -= timer;
+						gameObject.GetComponent<Renderer>().material.color = new Color(((cur / 2)) + .1f, .4f, .41f, ((cur / 2) )+ .1f);
 					}
 					else
 					{
@@ -58,12 +72,14 @@ public class Pause : MonoBehaviour
 
 	void pauseGame()
 	{
-		Debug.Log("paused");
+		spawner.GetComponent<Spawner>().pauseBlocks();
+		Player.GetComponent<FollowHand>().pausar();
 	}
 
 	void unPauseGame()
 	{
-		Debug.Log("unpaused");
+		spawner.GetComponent<Spawner>().unPauseblocks();
+		Player.GetComponent<FollowHand>().despausar();
 	}
 
 	void OnTriggerEnter2D(Collider2D triggerCollider)

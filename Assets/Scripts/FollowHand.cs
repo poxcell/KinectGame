@@ -10,6 +10,7 @@ public class FollowHand : MonoBehaviour
 	private Vector2 direction;
 
 	public float moveSpeed = 100f;
+	private bool pausa = false;
 
 
 	void Start()
@@ -21,14 +22,25 @@ public class FollowHand : MonoBehaviour
 	// Update is called once per frame
 	void Update()
     {
-		
-		float vectorx = rightHand.transform.position.x + (leftHand.transform.position.x - rightHand.transform.position.x) / 2;
-		float vectory = rightHand.transform.position.y + (leftHand.transform.position.y - rightHand.transform.position.y) / 2;
-		Vector3 targetPosition = new Vector3(vectorx, vectory, 0);
+		if (!pausa)
+		{
+			float vectorx = rightHand.transform.position.x + (leftHand.transform.position.x - rightHand.transform.position.x) / 2;
+			float vectory = rightHand.transform.position.y + (leftHand.transform.position.y - rightHand.transform.position.y) / 2;
+			Vector3 targetPosition = new Vector3(vectorx, vectory, 0);
 
-		direction = Vector3.Lerp(transform.position, targetPosition, moveSpeed *Time.deltaTime);
+			direction = Vector3.Lerp(transform.position, targetPosition, moveSpeed * Time.deltaTime);
 
-		transform.position = direction;
+			transform.position = direction;
+		}
 		
+	}
+	public void pausar()
+	{
+		pausa = true;
+	}
+
+	public void despausar()
+	{
+		pausa = false;
 	}
 }

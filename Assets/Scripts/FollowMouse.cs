@@ -30,6 +30,7 @@ public class FollowMouse : MonoBehaviour
 		if(triggerCollider.tag == "Falling Item")
 		{
 			Destroy(triggerCollider.gameObject);
+			GetComponent<Score>().sumScore();
 		}
 	}
 }
